@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "447827613395",
+    "project_id": "surprise-me-b2fe5",
+    "storage_bucket": "surprise-me-b2fe5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:447827613395:android:4756f87b4b9a39f7366626",
+        "android_client_info": {
+          "package_name": "ru.webmadness.surprise_me"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "447827613395-ujslmkg8kh1o9eibtd5si3d13fhplgk9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCy6tqgeL5soUVCzYCAiIj2dxa_v-8bZrs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "447827613395-ujslmkg8kh1o9eibtd5si3d13fhplgk9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "447827613395-f9kj8fm7f96t0d07o866oq5ffopioujg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ru.webmadness.surpriseMe"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

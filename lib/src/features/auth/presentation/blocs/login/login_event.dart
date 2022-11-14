@@ -1,4 +1,9 @@
 part of 'login_bloc.dart';
 
-@immutable
-abstract class LoginEvent {}
+@freezed
+class LoginEvent with _$LoginEvent {
+  const factory LoginEvent.send({
+    required String email,
+    required String password,
+  }) = SendLogin;
+}

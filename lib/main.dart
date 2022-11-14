@@ -1,7 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:surprise_me/src/common/navigator.dart';
+import 'package:surprise_me/firebase_options.dart';
+import 'package:surprise_me/src/common/app.dart';
+import 'package:surprise_me/src/common/di.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  configureDependencies();
+
   runApp(const MyApp());
 }
 
@@ -11,12 +22,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      onGenerateRoute: onGenerateRoute,
-    );
+    return const App();
   }
 }

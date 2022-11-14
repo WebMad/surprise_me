@@ -1,8 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:surprise_me/src/common/di.dart';
+import 'package:surprise_me/src/common/splash_screen.dart';
+import 'package:surprise_me/src/features/auth/presentation/blocs/login/login_bloc.dart';
+import 'package:surprise_me/src/features/auth/presentation/screens/login_screen.dart';
+import 'package:surprise_me/src/features/chat/presentation/blocs/chats/chats_bloc.dart';
+import 'package:surprise_me/src/features/chat/presentation/screens/chats_screen.dart';
 
 var routes = {
   '/': (Object? args) {
-    return Text("test");
+    return const SplashScreen();
+  },
+  '/chats': (Object? args) {
+    return BlocProvider(
+      create: (context) => getIt<ChatsBloc>(),
+      child: ChatsScreen(),
+    );
+  },
+  '/login': (Object? args) {
+    return BlocProvider(
+      create: (context) => LoginBloc(),
+      child: const LoginScreen(),
+    );
   }
 };
 
