@@ -21,6 +21,7 @@ class _AppState extends State<App> {
       create: (context) => authBloc,
       child: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
+          print(state);
           if (state is Authenticated) {
             navigatorKey.currentState?.pushReplacementNamed("/chats");
           }

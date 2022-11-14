@@ -29,6 +29,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
               firebase_auth.FirebaseAuth.instance.currentUser!),
         ),
       );
+      return;
     }
     emit(const AuthState.unAuthenticated());
   }

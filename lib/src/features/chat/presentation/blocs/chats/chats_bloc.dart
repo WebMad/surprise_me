@@ -21,7 +21,6 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
       add(ChatsEvent.newChats(
           chats: event.docs
               .map((e) {
-                print(e.data());
                 return User(
                   id: e.data()["auth_uid"],
                   name: e.data()["fullname"],
