@@ -15,6 +15,7 @@ class Message with _$Message {
     required String message,
     required String senderId,
     required List<String> userIds,
+    String? attachedFile,
     @JsonKey(fromJson: timestamp2DateTime) required DateTime sentAt,
   }) = _Message;
 

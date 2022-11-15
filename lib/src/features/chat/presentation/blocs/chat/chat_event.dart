@@ -7,6 +7,7 @@ class ChatEvent with _$ChatEvent {
   }) = NewMessages;
 
   const factory ChatEvent.sendMessage({
+    File? file,
     required String message,
   }) = SendMessage;
 }

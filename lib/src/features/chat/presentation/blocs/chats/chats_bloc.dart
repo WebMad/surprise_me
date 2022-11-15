@@ -17,20 +17,20 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     on<LoadChats>(_onLoadChats);
     on<NewChats>(_onNewChats);
 
-    FirebaseFirestore.instance.collection("users").snapshots().listen((event) {
+    FirebaseFirestore.instance
+        .collection("users")
+        .where("auth_uid",
+            isNotEqualTo: (getIt<AuthBloc>().state as Authenticated).user.id)
+        .snapshots()
+        .listen((event) {
       add(ChatsEvent.newChats(
-          chats: event.docs
-              .map((e) {
-                return User(
-                  id: e.data()["auth_uid"],
-                  name: e.data()["fullname"],
-                  login: e.data()["email"],
-                );
-              })
-              .where((element) =>
-                  element.id !=
-                  (getIt<AuthBloc>().state as Authenticated).user.id)
-              .toList()));
+          chats: event.docs.map((e) {
+        return User(
+          id: e.data()["auth_uid"],
+          name: e.data()["fullname"],
+          login: e.data()["email"],
+        );
+      }).toList()));
     });
 
     add(const ChatsEvent.loadChats());
@@ -47,7 +47,11 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
 
   _onLoadChats(LoadChats event, Emitter emit) async {
     emit(const ChatsState.loading());
-    var result = await FirebaseFirestore.instance.collection("users").get();
+    var result = await FirebaseFirestore.instance
+        .collection("users")
+        .where("auth_uid",
+            isNotEqualTo: (getIt<AuthBloc>().state as Authenticated).user.id)
+        .get();
     emit(
       ChatsState.loaded(
         users: result.docs

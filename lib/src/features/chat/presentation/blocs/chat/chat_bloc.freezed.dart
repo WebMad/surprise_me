@@ -19,19 +19,19 @@ mixin _$ChatEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<Message> messages) newMessages,
-    required TResult Function(String message) sendMessage,
+    required TResult Function(File? file, String message) sendMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Message> messages)? newMessages,
-    TResult? Function(String message)? sendMessage,
+    TResult? Function(File? file, String message)? sendMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Message> messages)? newMessages,
-    TResult Function(String message)? sendMessage,
+    TResult Function(File? file, String message)? sendMessage,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -144,7 +144,7 @@ class _$NewMessages implements NewMessages {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<Message> messages) newMessages,
-    required TResult Function(String message) sendMessage,
+    required TResult Function(File? file, String message) sendMessage,
   }) {
     return newMessages(messages);
   }
@@ -153,7 +153,7 @@ class _$NewMessages implements NewMessages {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Message> messages)? newMessages,
-    TResult? Function(String message)? sendMessage,
+    TResult? Function(File? file, String message)? sendMessage,
   }) {
     return newMessages?.call(messages);
   }
@@ -162,7 +162,7 @@ class _$NewMessages implements NewMessages {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Message> messages)? newMessages,
-    TResult Function(String message)? sendMessage,
+    TResult Function(File? file, String message)? sendMessage,
     required TResult orElse(),
   }) {
     if (newMessages != null) {
@@ -219,7 +219,7 @@ abstract class _$$SendMessageCopyWith<$Res> {
           _$SendMessage value, $Res Function(_$SendMessage) then) =
       __$$SendMessageCopyWithImpl<$Res>;
   @useResult
-  $Res call({String message});
+  $Res call({File? file, String message});
 }
 
 /// @nodoc
@@ -233,9 +233,14 @@ class __$$SendMessageCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? file = freezed,
     Object? message = null,
   }) {
     return _then(_$SendMessage(
+      file: freezed == file
+          ? _value.file
+          : file // ignore: cast_nullable_to_non_nullable
+              as File?,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -247,14 +252,16 @@ class __$$SendMessageCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SendMessage implements SendMessage {
-  const _$SendMessage({required this.message});
+  const _$SendMessage({this.file, required this.message});
 
+  @override
+  final File? file;
   @override
   final String message;
 
   @override
   String toString() {
-    return 'ChatEvent.sendMessage(message: $message)';
+    return 'ChatEvent.sendMessage(file: $file, message: $message)';
   }
 
   @override
@@ -262,11 +269,12 @@ class _$SendMessage implements SendMessage {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SendMessage &&
+            (identical(other.file, file) || other.file == file) &&
             (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message);
+  int get hashCode => Object.hash(runtimeType, file, message);
 
   @JsonKey(ignore: true)
   @override
@@ -278,29 +286,29 @@ class _$SendMessage implements SendMessage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<Message> messages) newMessages,
-    required TResult Function(String message) sendMessage,
+    required TResult Function(File? file, String message) sendMessage,
   }) {
-    return sendMessage(message);
+    return sendMessage(file, message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Message> messages)? newMessages,
-    TResult? Function(String message)? sendMessage,
+    TResult? Function(File? file, String message)? sendMessage,
   }) {
-    return sendMessage?.call(message);
+    return sendMessage?.call(file, message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Message> messages)? newMessages,
-    TResult Function(String message)? sendMessage,
+    TResult Function(File? file, String message)? sendMessage,
     required TResult orElse(),
   }) {
     if (sendMessage != null) {
-      return sendMessage(message);
+      return sendMessage(file, message);
     }
     return orElse();
   }
@@ -338,8 +346,10 @@ class _$SendMessage implements SendMessage {
 }
 
 abstract class SendMessage implements ChatEvent {
-  const factory SendMessage({required final String message}) = _$SendMessage;
+  const factory SendMessage({final File? file, required final String message}) =
+      _$SendMessage;
 
+  File? get file;
   String get message;
   @JsonKey(ignore: true)
   _$$SendMessageCopyWith<_$SendMessage> get copyWith =>
