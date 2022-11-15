@@ -10,4 +10,10 @@ class ChatEvent with _$ChatEvent {
     File? file,
     required String message,
   }) = SendMessage;
+
+  const factory ChatEvent.sendReaction({
+    required File reaction,
+    required String file,
+    required String fileType,
+  }) = SendReaction;
 }

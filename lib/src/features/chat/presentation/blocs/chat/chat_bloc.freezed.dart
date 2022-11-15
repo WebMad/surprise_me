@@ -20,18 +20,23 @@ mixin _$ChatEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(List<Message> messages) newMessages,
     required TResult Function(File? file, String message) sendMessage,
+    required TResult Function(File reaction, String file, String fileType)
+        sendReaction,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Message> messages)? newMessages,
     TResult? Function(File? file, String message)? sendMessage,
+    TResult? Function(File reaction, String file, String fileType)?
+        sendReaction,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Message> messages)? newMessages,
     TResult Function(File? file, String message)? sendMessage,
+    TResult Function(File reaction, String file, String fileType)? sendReaction,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +44,21 @@ mixin _$ChatEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(NewMessages value) newMessages,
     required TResult Function(SendMessage value) sendMessage,
+    required TResult Function(SendReaction value) sendReaction,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(NewMessages value)? newMessages,
     TResult? Function(SendMessage value)? sendMessage,
+    TResult? Function(SendReaction value)? sendReaction,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NewMessages value)? newMessages,
     TResult Function(SendMessage value)? sendMessage,
+    TResult Function(SendReaction value)? sendReaction,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -145,6 +153,8 @@ class _$NewMessages implements NewMessages {
   TResult when<TResult extends Object?>({
     required TResult Function(List<Message> messages) newMessages,
     required TResult Function(File? file, String message) sendMessage,
+    required TResult Function(File reaction, String file, String fileType)
+        sendReaction,
   }) {
     return newMessages(messages);
   }
@@ -154,6 +164,8 @@ class _$NewMessages implements NewMessages {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Message> messages)? newMessages,
     TResult? Function(File? file, String message)? sendMessage,
+    TResult? Function(File reaction, String file, String fileType)?
+        sendReaction,
   }) {
     return newMessages?.call(messages);
   }
@@ -163,6 +175,7 @@ class _$NewMessages implements NewMessages {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Message> messages)? newMessages,
     TResult Function(File? file, String message)? sendMessage,
+    TResult Function(File reaction, String file, String fileType)? sendReaction,
     required TResult orElse(),
   }) {
     if (newMessages != null) {
@@ -176,6 +189,7 @@ class _$NewMessages implements NewMessages {
   TResult map<TResult extends Object?>({
     required TResult Function(NewMessages value) newMessages,
     required TResult Function(SendMessage value) sendMessage,
+    required TResult Function(SendReaction value) sendReaction,
   }) {
     return newMessages(this);
   }
@@ -185,6 +199,7 @@ class _$NewMessages implements NewMessages {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(NewMessages value)? newMessages,
     TResult? Function(SendMessage value)? sendMessage,
+    TResult? Function(SendReaction value)? sendReaction,
   }) {
     return newMessages?.call(this);
   }
@@ -194,6 +209,7 @@ class _$NewMessages implements NewMessages {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NewMessages value)? newMessages,
     TResult Function(SendMessage value)? sendMessage,
+    TResult Function(SendReaction value)? sendReaction,
     required TResult orElse(),
   }) {
     if (newMessages != null) {
@@ -287,6 +303,8 @@ class _$SendMessage implements SendMessage {
   TResult when<TResult extends Object?>({
     required TResult Function(List<Message> messages) newMessages,
     required TResult Function(File? file, String message) sendMessage,
+    required TResult Function(File reaction, String file, String fileType)
+        sendReaction,
   }) {
     return sendMessage(file, message);
   }
@@ -296,6 +314,8 @@ class _$SendMessage implements SendMessage {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Message> messages)? newMessages,
     TResult? Function(File? file, String message)? sendMessage,
+    TResult? Function(File reaction, String file, String fileType)?
+        sendReaction,
   }) {
     return sendMessage?.call(file, message);
   }
@@ -305,6 +325,7 @@ class _$SendMessage implements SendMessage {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Message> messages)? newMessages,
     TResult Function(File? file, String message)? sendMessage,
+    TResult Function(File reaction, String file, String fileType)? sendReaction,
     required TResult orElse(),
   }) {
     if (sendMessage != null) {
@@ -318,6 +339,7 @@ class _$SendMessage implements SendMessage {
   TResult map<TResult extends Object?>({
     required TResult Function(NewMessages value) newMessages,
     required TResult Function(SendMessage value) sendMessage,
+    required TResult Function(SendReaction value) sendReaction,
   }) {
     return sendMessage(this);
   }
@@ -327,6 +349,7 @@ class _$SendMessage implements SendMessage {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(NewMessages value)? newMessages,
     TResult? Function(SendMessage value)? sendMessage,
+    TResult? Function(SendReaction value)? sendReaction,
   }) {
     return sendMessage?.call(this);
   }
@@ -336,6 +359,7 @@ class _$SendMessage implements SendMessage {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(NewMessages value)? newMessages,
     TResult Function(SendMessage value)? sendMessage,
+    TResult Function(SendReaction value)? sendReaction,
     required TResult orElse(),
   }) {
     if (sendMessage != null) {
@@ -357,25 +381,196 @@ abstract class SendMessage implements ChatEvent {
 }
 
 /// @nodoc
+abstract class _$$SendReactionCopyWith<$Res> {
+  factory _$$SendReactionCopyWith(
+          _$SendReaction value, $Res Function(_$SendReaction) then) =
+      __$$SendReactionCopyWithImpl<$Res>;
+  @useResult
+  $Res call({File reaction, String file, String fileType});
+}
+
+/// @nodoc
+class __$$SendReactionCopyWithImpl<$Res>
+    extends _$ChatEventCopyWithImpl<$Res, _$SendReaction>
+    implements _$$SendReactionCopyWith<$Res> {
+  __$$SendReactionCopyWithImpl(
+      _$SendReaction _value, $Res Function(_$SendReaction) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? reaction = null,
+    Object? file = null,
+    Object? fileType = null,
+  }) {
+    return _then(_$SendReaction(
+      reaction: null == reaction
+          ? _value.reaction
+          : reaction // ignore: cast_nullable_to_non_nullable
+              as File,
+      file: null == file
+          ? _value.file
+          : file // ignore: cast_nullable_to_non_nullable
+              as String,
+      fileType: null == fileType
+          ? _value.fileType
+          : fileType // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SendReaction implements SendReaction {
+  const _$SendReaction(
+      {required this.reaction, required this.file, required this.fileType});
+
+  @override
+  final File reaction;
+  @override
+  final String file;
+  @override
+  final String fileType;
+
+  @override
+  String toString() {
+    return 'ChatEvent.sendReaction(reaction: $reaction, file: $file, fileType: $fileType)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SendReaction &&
+            (identical(other.reaction, reaction) ||
+                other.reaction == reaction) &&
+            (identical(other.file, file) || other.file == file) &&
+            (identical(other.fileType, fileType) ||
+                other.fileType == fileType));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, reaction, file, fileType);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SendReactionCopyWith<_$SendReaction> get copyWith =>
+      __$$SendReactionCopyWithImpl<_$SendReaction>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Message> messages) newMessages,
+    required TResult Function(File? file, String message) sendMessage,
+    required TResult Function(File reaction, String file, String fileType)
+        sendReaction,
+  }) {
+    return sendReaction(reaction, file, fileType);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Message> messages)? newMessages,
+    TResult? Function(File? file, String message)? sendMessage,
+    TResult? Function(File reaction, String file, String fileType)?
+        sendReaction,
+  }) {
+    return sendReaction?.call(reaction, file, fileType);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Message> messages)? newMessages,
+    TResult Function(File? file, String message)? sendMessage,
+    TResult Function(File reaction, String file, String fileType)? sendReaction,
+    required TResult orElse(),
+  }) {
+    if (sendReaction != null) {
+      return sendReaction(reaction, file, fileType);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(NewMessages value) newMessages,
+    required TResult Function(SendMessage value) sendMessage,
+    required TResult Function(SendReaction value) sendReaction,
+  }) {
+    return sendReaction(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(NewMessages value)? newMessages,
+    TResult? Function(SendMessage value)? sendMessage,
+    TResult? Function(SendReaction value)? sendReaction,
+  }) {
+    return sendReaction?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(NewMessages value)? newMessages,
+    TResult Function(SendMessage value)? sendMessage,
+    TResult Function(SendReaction value)? sendReaction,
+    required TResult orElse(),
+  }) {
+    if (sendReaction != null) {
+      return sendReaction(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SendReaction implements ChatEvent {
+  const factory SendReaction(
+      {required final File reaction,
+      required final String file,
+      required final String fileType}) = _$SendReaction;
+
+  File get reaction;
+  String get file;
+  String get fileType;
+  @JsonKey(ignore: true)
+  _$$SendReactionCopyWith<_$SendReaction> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$ChatState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(bool isSending, List<Message> messages) loaded,
+    required TResult Function(
+            bool isSending, List<Message> messages, List<String> files)
+        loaded,
     required TResult Function() error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(bool isSending, List<Message> messages)? loaded,
+    TResult? Function(
+            bool isSending, List<Message> messages, List<String> files)?
+        loaded,
     TResult? Function()? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(bool isSending, List<Message> messages)? loaded,
+    TResult Function(
+            bool isSending, List<Message> messages, List<String> files)?
+        loaded,
     TResult Function()? error,
     required TResult orElse(),
   }) =>
@@ -460,7 +655,9 @@ class _$LoadingMessages implements LoadingMessages {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(bool isSending, List<Message> messages) loaded,
+    required TResult Function(
+            bool isSending, List<Message> messages, List<String> files)
+        loaded,
     required TResult Function() error,
   }) {
     return loading();
@@ -470,7 +667,9 @@ class _$LoadingMessages implements LoadingMessages {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(bool isSending, List<Message> messages)? loaded,
+    TResult? Function(
+            bool isSending, List<Message> messages, List<String> files)?
+        loaded,
     TResult? Function()? error,
   }) {
     return loading?.call();
@@ -480,7 +679,9 @@ class _$LoadingMessages implements LoadingMessages {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(bool isSending, List<Message> messages)? loaded,
+    TResult Function(
+            bool isSending, List<Message> messages, List<String> files)?
+        loaded,
     TResult Function()? error,
     required TResult orElse(),
   }) {
@@ -535,7 +736,7 @@ abstract class _$$LoadedMessagesCopyWith<$Res> {
           _$LoadedMessages value, $Res Function(_$LoadedMessages) then) =
       __$$LoadedMessagesCopyWithImpl<$Res>;
   @useResult
-  $Res call({bool isSending, List<Message> messages});
+  $Res call({bool isSending, List<Message> messages, List<String> files});
 }
 
 /// @nodoc
@@ -551,6 +752,7 @@ class __$$LoadedMessagesCopyWithImpl<$Res>
   $Res call({
     Object? isSending = null,
     Object? messages = null,
+    Object? files = null,
   }) {
     return _then(_$LoadedMessages(
       isSending: null == isSending
@@ -561,6 +763,10 @@ class __$$LoadedMessagesCopyWithImpl<$Res>
           ? _value._messages
           : messages // ignore: cast_nullable_to_non_nullable
               as List<Message>,
+      files: null == files
+          ? _value._files
+          : files // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -569,8 +775,11 @@ class __$$LoadedMessagesCopyWithImpl<$Res>
 
 class _$LoadedMessages implements LoadedMessages {
   const _$LoadedMessages(
-      {this.isSending = false, required final List<Message> messages})
-      : _messages = messages;
+      {this.isSending = false,
+      required final List<Message> messages,
+      final List<String> files = const []})
+      : _messages = messages,
+        _files = files;
 
   @override
   @JsonKey()
@@ -582,9 +791,17 @@ class _$LoadedMessages implements LoadedMessages {
     return EqualUnmodifiableListView(_messages);
   }
 
+  final List<String> _files;
+  @override
+  @JsonKey()
+  List<String> get files {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_files);
+  }
+
   @override
   String toString() {
-    return 'ChatState.loaded(isSending: $isSending, messages: $messages)';
+    return 'ChatState.loaded(isSending: $isSending, messages: $messages, files: $files)';
   }
 
   @override
@@ -594,12 +811,16 @@ class _$LoadedMessages implements LoadedMessages {
             other is _$LoadedMessages &&
             (identical(other.isSending, isSending) ||
                 other.isSending == isSending) &&
-            const DeepCollectionEquality().equals(other._messages, _messages));
+            const DeepCollectionEquality().equals(other._messages, _messages) &&
+            const DeepCollectionEquality().equals(other._files, _files));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, isSending, const DeepCollectionEquality().hash(_messages));
+      runtimeType,
+      isSending,
+      const DeepCollectionEquality().hash(_messages),
+      const DeepCollectionEquality().hash(_files));
 
   @JsonKey(ignore: true)
   @override
@@ -611,32 +832,38 @@ class _$LoadedMessages implements LoadedMessages {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(bool isSending, List<Message> messages) loaded,
+    required TResult Function(
+            bool isSending, List<Message> messages, List<String> files)
+        loaded,
     required TResult Function() error,
   }) {
-    return loaded(isSending, messages);
+    return loaded(isSending, messages, files);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(bool isSending, List<Message> messages)? loaded,
+    TResult? Function(
+            bool isSending, List<Message> messages, List<String> files)?
+        loaded,
     TResult? Function()? error,
   }) {
-    return loaded?.call(isSending, messages);
+    return loaded?.call(isSending, messages, files);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(bool isSending, List<Message> messages)? loaded,
+    TResult Function(
+            bool isSending, List<Message> messages, List<String> files)?
+        loaded,
     TResult Function()? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(isSending, messages);
+      return loaded(isSending, messages, files);
     }
     return orElse();
   }
@@ -679,10 +906,12 @@ class _$LoadedMessages implements LoadedMessages {
 abstract class LoadedMessages implements ChatState {
   const factory LoadedMessages(
       {final bool isSending,
-      required final List<Message> messages}) = _$LoadedMessages;
+      required final List<Message> messages,
+      final List<String> files}) = _$LoadedMessages;
 
   bool get isSending;
   List<Message> get messages;
+  List<String> get files;
   @JsonKey(ignore: true)
   _$$LoadedMessagesCopyWith<_$LoadedMessages> get copyWith =>
       throw _privateConstructorUsedError;
@@ -727,7 +956,9 @@ class _$ErrorMessages implements ErrorMessages {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(bool isSending, List<Message> messages) loaded,
+    required TResult Function(
+            bool isSending, List<Message> messages, List<String> files)
+        loaded,
     required TResult Function() error,
   }) {
     return error();
@@ -737,7 +968,9 @@ class _$ErrorMessages implements ErrorMessages {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(bool isSending, List<Message> messages)? loaded,
+    TResult? Function(
+            bool isSending, List<Message> messages, List<String> files)?
+        loaded,
     TResult? Function()? error,
   }) {
     return error?.call();
@@ -747,7 +980,9 @@ class _$ErrorMessages implements ErrorMessages {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(bool isSending, List<Message> messages)? loaded,
+    TResult Function(
+            bool isSending, List<Message> messages, List<String> files)?
+        loaded,
     TResult Function()? error,
     required TResult orElse(),
   }) {

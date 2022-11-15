@@ -6,8 +6,10 @@ import 'package:surprise_me/src/features/auth/presentation/blocs/login/login_blo
 import 'package:surprise_me/src/features/auth/presentation/screens/login_screen.dart';
 import 'package:surprise_me/src/features/chat/presentation/blocs/chat/chat_bloc.dart';
 import 'package:surprise_me/src/features/chat/presentation/blocs/chats/chats_bloc.dart';
+import 'package:surprise_me/src/features/chat/presentation/blocs/view_image/view_image_bloc.dart';
 import 'package:surprise_me/src/features/chat/presentation/screens/chat_screen.dart';
 import 'package:surprise_me/src/features/chat/presentation/screens/chats_screen.dart';
+import 'package:surprise_me/src/features/chat/presentation/screens/view_image_screen.dart';
 
 var routes = {
   '/': (Object? args) {
@@ -25,6 +27,15 @@ var routes = {
       create: (context) =>
           ChatBloc(arg['receiver_id'] as String, arg['sender_id'] as String),
       child: ChatScreen(),
+    );
+  },
+  '/view-image': (Object? args) {
+    return BlocProvider(
+      create: (context) => ViewImageBloc(),
+      child: ViewImageScreen(
+        url: (args as Map<String, String>)['url'] as String,
+        type: args['type'] as String,
+      ),
     );
   },
   '/login': (Object? args) {

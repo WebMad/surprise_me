@@ -7,6 +7,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mime/mime.dart';
 import 'package:surprise_me/src/features/auth/presentation/blocs/auth/auth_bloc.dart';
 import 'package:surprise_me/src/features/chat/presentation/blocs/chat/chat_bloc.dart';
+import 'package:surprise_me/src/features/chat/presentation/widgets/custom_image.dart';
+import 'package:surprise_me/src/features/chat/presentation/widgets/custom_video_player.dart';
+import 'package:surprise_me/src/features/chat/presentation/widgets/video.dart';
+import 'package:video_player/video_player.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -21,6 +25,11 @@ class _ChatScreenState extends State<ChatScreen> {
   final messageController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Чат")),
@@ -33,6 +42,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   child: ListView.builder(
                     reverse: true,
                     itemBuilder: (context, index) {
+                      var message = state.messages[index];
                       return Align(
                         alignment: (BlocProvider.of<AuthBloc>(context).state
                                         as Authenticated)
@@ -54,26 +64,158 @@ class _ChatScreenState extends State<ChatScreen> {
                           ),
                           child: Column(
                             children: [
-                              Builder(
-                                builder: (context) {
-                                  if (state.messages[index].attachedFile !=
-                                      null) {
-                                    return FutureBuilder(
-                                      future: FirebaseStorage.instance
-                                          .ref()
-                                          .child(state
-                                              .messages[index].attachedFile!)
-                                          .getDownloadURL(),
-                                      builder: (context, snapshot) {
-                                        if (snapshot.hasData) {
-                                          return Text("*Картинка*");
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Builder(
+                                    builder: (context) {
+                                      if (message.attachedFile != null &&
+                                          message.attachedFileType != null) {
+                                        var userId =
+                                            (BlocProvider.of<AuthBloc>(context)
+                                                    .state as Authenticated)
+                                                .user
+                                                .id;
+                                        var file = state.files.firstWhere(
+                                          (element) =>
+                                              Uri.parse(element)
+                                                  .pathSegments
+                                                  .last ==
+                                              message.attachedFile,
+                                        );
+                                        if (message.attachedFileType ==
+                                            'image') {
+                                          if (userId == message.senderId ||
+                                              message.type == "reaction") {
+                                            return Image.network(file,
+                                                width: 200);
+                                          }
+                                          return CustomImage(
+                                            onClick: () {
+                                              Navigator.of(context).pushNamed(
+                                                  '/view-image',
+                                                  arguments: {
+                                                    "url": file,
+                                                    "type": "image",
+                                                  }).then((value) {
+                                                if (value is File) {
+                                                  BlocProvider.of<ChatBloc>(
+                                                          context)
+                                                      .add(
+                                                    ChatEvent.sendReaction(
+                                                      reaction: value,
+                                                      file:
+                                                          message.attachedFile!,
+                                                      fileType: message
+                                                          .attachedFileType!,
+                                                    ),
+                                                  );
+                                                }
+                                              });
+                                            },
+                                          );
                                         }
-                                        return const SizedBox();
-                                      },
-                                    );
-                                  }
-                                  return const SizedBox();
-                                },
+
+                                        if (message.type == "reaction") {
+                                          return Video(
+                                            onClick: () {
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder: (context) {
+                                                    return Scaffold(
+                                                      appBar: AppBar(
+                                                        title:
+                                                            const Text("Видео"),
+                                                      ),
+                                                      body: CustomVideoPlayer(
+                                                          url: file),
+                                                    );
+                                                  },
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        }
+
+                                        return Video(
+                                          onClick: userId != message.senderId
+                                              ? () {
+                                                  Navigator.of(context)
+                                                      .pushNamed('/view-image',
+                                                          arguments: {
+                                                        "url": file,
+                                                        "type": "video",
+                                                      }).then((value) {
+                                                    if (value is File) {
+                                                      BlocProvider.of<ChatBloc>(
+                                                              context)
+                                                          .add(
+                                                        ChatEvent.sendReaction(
+                                                          reaction: value,
+                                                          file: message
+                                                              .attachedFile!,
+                                                          fileType: message
+                                                              .attachedFileType!,
+                                                        ),
+                                                      );
+                                                    }
+                                                  });
+                                                  print("Gotcha video!");
+                                                }
+                                              : () {
+                                                  Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                      builder: (context) {
+                                                        return Scaffold(
+                                                          appBar: AppBar(
+                                                            title: const Text(
+                                                                "Видео"),
+                                                          ),
+                                                          body:
+                                                              CustomVideoPlayer(
+                                                                  url: file),
+                                                        );
+                                                      },
+                                                    ),
+                                                  );
+                                                },
+                                        );
+                                      }
+                                      return const SizedBox();
+                                    },
+                                  ),
+                                  Builder(
+                                    builder: (context) {
+                                      if (message.reaction != null) {
+                                        var file = state.files.firstWhere(
+                                          (element) =>
+                                              Uri.parse(element)
+                                                  .pathSegments
+                                                  .last ==
+                                              message.reaction,
+                                        );
+
+                                        return Video(onClick: () {
+                                          Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                            builder: (context) {
+                                              return Scaffold(
+                                                appBar: AppBar(
+                                                  title: const Text("Реакция"),
+                                                ),
+                                                body: CustomVideoPlayer(
+                                                  url: file,
+                                                ),
+                                              );
+                                            },
+                                          ));
+                                        });
+                                      }
+
+                                      return const SizedBox();
+                                    },
+                                  ),
+                                ],
                               ),
                               Text(state.messages[index].message),
                             ],
@@ -150,7 +292,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                 return Text(mime);
                               },
                             )
-                          : SizedBox(),
+                          : const SizedBox(),
                     ),
                     Row(
                       children: [

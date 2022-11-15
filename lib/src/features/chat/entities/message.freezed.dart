@@ -23,7 +23,10 @@ mixin _$Message {
   String get message => throw _privateConstructorUsedError;
   String get senderId => throw _privateConstructorUsedError;
   List<String> get userIds => throw _privateConstructorUsedError;
+  String? get type => throw _privateConstructorUsedError;
   String? get attachedFile => throw _privateConstructorUsedError;
+  String? get attachedFileType => throw _privateConstructorUsedError;
+  String? get reaction => throw _privateConstructorUsedError;
   @JsonKey(fromJson: timestamp2DateTime)
   DateTime get sentAt => throw _privateConstructorUsedError;
 
@@ -41,7 +44,10 @@ abstract class $MessageCopyWith<$Res> {
       {String message,
       String senderId,
       List<String> userIds,
+      String? type,
       String? attachedFile,
+      String? attachedFileType,
+      String? reaction,
       @JsonKey(fromJson: timestamp2DateTime) DateTime sentAt});
 }
 
@@ -61,7 +67,10 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
     Object? message = null,
     Object? senderId = null,
     Object? userIds = null,
+    Object? type = freezed,
     Object? attachedFile = freezed,
+    Object? attachedFileType = freezed,
+    Object? reaction = freezed,
     Object? sentAt = null,
   }) {
     return _then(_value.copyWith(
@@ -77,9 +86,21 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
           ? _value.userIds
           : userIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      type: freezed == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
       attachedFile: freezed == attachedFile
           ? _value.attachedFile
           : attachedFile // ignore: cast_nullable_to_non_nullable
+              as String?,
+      attachedFileType: freezed == attachedFileType
+          ? _value.attachedFileType
+          : attachedFileType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      reaction: freezed == reaction
+          ? _value.reaction
+          : reaction // ignore: cast_nullable_to_non_nullable
               as String?,
       sentAt: null == sentAt
           ? _value.sentAt
@@ -100,7 +121,10 @@ abstract class _$$_MessageCopyWith<$Res> implements $MessageCopyWith<$Res> {
       {String message,
       String senderId,
       List<String> userIds,
+      String? type,
       String? attachedFile,
+      String? attachedFileType,
+      String? reaction,
       @JsonKey(fromJson: timestamp2DateTime) DateTime sentAt});
 }
 
@@ -117,7 +141,10 @@ class __$$_MessageCopyWithImpl<$Res>
     Object? message = null,
     Object? senderId = null,
     Object? userIds = null,
+    Object? type = freezed,
     Object? attachedFile = freezed,
+    Object? attachedFileType = freezed,
+    Object? reaction = freezed,
     Object? sentAt = null,
   }) {
     return _then(_$_Message(
@@ -133,9 +160,21 @@ class __$$_MessageCopyWithImpl<$Res>
           ? _value._userIds
           : userIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      type: freezed == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
       attachedFile: freezed == attachedFile
           ? _value.attachedFile
           : attachedFile // ignore: cast_nullable_to_non_nullable
+              as String?,
+      attachedFileType: freezed == attachedFileType
+          ? _value.attachedFileType
+          : attachedFileType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      reaction: freezed == reaction
+          ? _value.reaction
+          : reaction // ignore: cast_nullable_to_non_nullable
               as String?,
       sentAt: null == sentAt
           ? _value.sentAt
@@ -153,7 +192,10 @@ class _$_Message implements _Message {
       {required this.message,
       required this.senderId,
       required final List<String> userIds,
+      this.type,
       this.attachedFile,
+      this.attachedFileType,
+      this.reaction,
       @JsonKey(fromJson: timestamp2DateTime) required this.sentAt})
       : _userIds = userIds;
 
@@ -172,14 +214,20 @@ class _$_Message implements _Message {
   }
 
   @override
+  final String? type;
+  @override
   final String? attachedFile;
+  @override
+  final String? attachedFileType;
+  @override
+  final String? reaction;
   @override
   @JsonKey(fromJson: timestamp2DateTime)
   final DateTime sentAt;
 
   @override
   String toString() {
-    return 'Message(message: $message, senderId: $senderId, userIds: $userIds, attachedFile: $attachedFile, sentAt: $sentAt)';
+    return 'Message(message: $message, senderId: $senderId, userIds: $userIds, type: $type, attachedFile: $attachedFile, attachedFileType: $attachedFileType, reaction: $reaction, sentAt: $sentAt)';
   }
 
   @override
@@ -191,15 +239,28 @@ class _$_Message implements _Message {
             (identical(other.senderId, senderId) ||
                 other.senderId == senderId) &&
             const DeepCollectionEquality().equals(other._userIds, _userIds) &&
+            (identical(other.type, type) || other.type == type) &&
             (identical(other.attachedFile, attachedFile) ||
                 other.attachedFile == attachedFile) &&
+            (identical(other.attachedFileType, attachedFileType) ||
+                other.attachedFileType == attachedFileType) &&
+            (identical(other.reaction, reaction) ||
+                other.reaction == reaction) &&
             (identical(other.sentAt, sentAt) || other.sentAt == sentAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, message, senderId,
-      const DeepCollectionEquality().hash(_userIds), attachedFile, sentAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      message,
+      senderId,
+      const DeepCollectionEquality().hash(_userIds),
+      type,
+      attachedFile,
+      attachedFileType,
+      reaction,
+      sentAt);
 
   @JsonKey(ignore: true)
   @override
@@ -220,7 +281,10 @@ abstract class _Message implements Message {
       {required final String message,
       required final String senderId,
       required final List<String> userIds,
+      final String? type,
       final String? attachedFile,
+      final String? attachedFileType,
+      final String? reaction,
       @JsonKey(fromJson: timestamp2DateTime)
           required final DateTime sentAt}) = _$_Message;
 
@@ -233,7 +297,13 @@ abstract class _Message implements Message {
   @override
   List<String> get userIds;
   @override
+  String? get type;
+  @override
   String? get attachedFile;
+  @override
+  String? get attachedFileType;
+  @override
+  String? get reaction;
   @override
   @JsonKey(fromJson: timestamp2DateTime)
   DateTime get sentAt;
