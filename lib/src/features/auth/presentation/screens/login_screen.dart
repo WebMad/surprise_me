@@ -20,7 +20,6 @@ class _LoginScreenState extends State<LoginScreen> {
       listener: (context, state) {
         print(state);
         if (state is SuccessLogin) {
-          print("dsdsdcxcxcx");
           BlocProvider.of<AuthBloc>(context)
               .add(AuthEvent.loggedIn(user: state.user));
         }
@@ -42,21 +41,44 @@ class _LoginScreenState extends State<LoginScreen> {
                       return const SizedBox();
                     },
                   ),
-                  TextFormField(controller: emailController),
                   TextFormField(
-                      controller: passwordController, obscureText: true),
-                  ElevatedButton(
-                      onPressed: BlocProvider.of<LoginBloc>(context).state
-                              is LoadingLogin
-                          ? null
-                          : () {
-                              BlocProvider.of<LoginBloc>(context)
-                                  .add(LoginEvent.send(
-                                email: emailController.text,
-                                password: passwordController.text,
-                              ));
-                            },
-                      child: const Text("Войти"))
+                    controller: emailController,
+                    decoration: const InputDecoration(
+                      labelText: "Email",
+                    ),
+                  ),
+                  TextFormField(
+                    controller: passwordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: "Password",
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushReplacementNamed('/register');
+                        },
+                        child: const Text("Регистрация"),
+                      ),
+                      ElevatedButton(
+                        onPressed: BlocProvider.of<LoginBloc>(context).state
+                                is LoadingLogin
+                            ? null
+                            : () {
+                                BlocProvider.of<LoginBloc>(context)
+                                    .add(LoginEvent.send(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                ));
+                              },
+                        child: const Text("Войти"),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

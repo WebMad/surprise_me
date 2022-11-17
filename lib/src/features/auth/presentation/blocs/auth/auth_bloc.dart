@@ -13,8 +13,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(const AuthState.unAuthenticated()) {
     on<LoggedIn>(_onLoggedIn);
     on<CheckAuth>(_onCheckAuth);
+    on<LogoutAuth>(_onLogoutAuth);
 
     add(const CheckAuth());
+  }
+
+  _onLogoutAuth(LogoutAuth event, Emitter emit) async {
+    await firebase_auth.FirebaseAuth.instance.signOut();
+    emit(const AuthState.unAuthenticated());
   }
 
   _onLoggedIn(LoggedIn event, Emitter emit) {

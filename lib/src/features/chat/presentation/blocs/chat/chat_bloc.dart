@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
@@ -6,28 +7,29 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mime/mime.dart';
+import 'package:surprise_me/src/features/auth/entities/user.dart';
 import 'package:surprise_me/src/features/chat/entities/message.dart';
 
 part 'chat_bloc.freezed.dart';
-
 part 'chat_event.dart';
-
 part 'chat_state.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
-  final String receiverId;
-  final String senderId;
+  final User receiver;
+  final User sender;
+  late final StreamSubscription streamSubscription;
 
-  ChatBloc(this.receiverId, this.senderId) : super(const ChatState.loading()) {
+  ChatBloc(this.receiver, this.sender) : super(const ChatState.loading()) {
     on<NewMessages>(_onLoadedMessages);
     on<SendMessage>(_onSendMessage);
     on<SendReaction>(_onSendReaction);
+    on<SendDecline>(_onSendDecline);
 
-    FirebaseFirestore.instance
+    streamSubscription = FirebaseFirestore.instance
         .collection("messages")
         .where('user_ids', whereIn: [
-          [receiverId, senderId],
-          [senderId, receiverId],
+          [receiver.id, sender.id],
+          [sender.id, receiver.id],
         ])
         .orderBy("sent_at", descending: true)
         .limit(10)
@@ -38,6 +40,29 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
             return Message.fromJson(e.data());
           }).toList()));
         });
+  }
+
+  @override
+  Future<void> close() async {
+    await streamSubscription.cancel();
+    await super.close();
+  }
+
+  _onSendDecline(SendDecline event, Emitter emit) async {
+    emit((state as LoadedMessages).copyWith(isSending: true));
+    await FirebaseFirestore.instance.collection("messages").add({
+      "sent_at": DateTime.now(),
+      "user_ids": [
+        sender.id,
+        receiver.id,
+      ],
+      "sender_id": sender.id,
+      "message": "Пользователь отказался включать камеру для этого маетариала(",
+      "attached_file_type": event.fileType,
+      "attached_file": event.file,
+    });
+
+    emit((state as LoadedMessages).copyWith(isSending: false));
   }
 
   _onLoadedMessages(NewMessages event, Emitter emit) async {
@@ -74,11 +99,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     await FirebaseFirestore.instance.collection("messages").add({
       "sent_at": DateTime.now(),
       "user_ids": [
-        senderId,
-        receiverId,
+        sender.id,
+        receiver.id,
       ],
       "attached_file_type": fileType,
-      "sender_id": senderId,
+      "sender_id": sender.id,
       "message": event.message,
       "attached_file": fileName,
     });
@@ -97,12 +122,12 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     await FirebaseFirestore.instance.collection("messages").add({
       "sent_at": DateTime.now(),
       "user_ids": [
-        senderId,
-        receiverId,
+        sender.id,
+        receiver.id,
       ],
-      "sender_id": senderId,
+      "sender_id": sender.id,
       "type": "reaction",
-      "message": "Реакция на материал",
+      "message": "",
       "attached_file_type": event.fileType,
       "attached_file": event.file,
       "reaction": fileName,

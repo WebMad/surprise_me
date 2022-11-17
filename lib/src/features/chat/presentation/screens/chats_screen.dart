@@ -9,7 +9,15 @@ class ChatsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Contact list")),
+      appBar: AppBar(
+        title: const Text("Contact list"),
+        leading: IconButton(
+          icon: const Icon(Icons.logout),
+          onPressed: () {
+            BlocProvider.of<AuthBloc>(context).add(const AuthEvent.logout());
+          },
+        ),
+      ),
       body: BlocBuilder<ChatsBloc, ChatsState>(
         builder: (context, state) {
           if (state is LoadedChats) {
@@ -20,11 +28,10 @@ class ChatsScreen extends StatelessWidget {
                   subtitle: Text(state.users[index].login),
                   onTap: () {
                     Navigator.of(context).pushNamed('/chat', arguments: {
-                      "sender_id": (BlocProvider.of<AuthBloc>(context).state
+                      "sender": (BlocProvider.of<AuthBloc>(context).state
                               as Authenticated)
-                          .user
-                          .id,
-                      "receiver_id": state.users[index].id,
+                          .user,
+                      "receiver": state.users[index],
                     });
                   },
                   trailing: const Icon(Icons.navigate_next),

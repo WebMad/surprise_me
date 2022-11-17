@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:surprise_me/src/common/di.dart';
 import 'package:surprise_me/src/common/splash_screen.dart';
+import 'package:surprise_me/src/features/auth/entities/user.dart';
 import 'package:surprise_me/src/features/auth/presentation/blocs/login/login_bloc.dart';
+import 'package:surprise_me/src/features/auth/presentation/blocs/register/register_bloc.dart';
 import 'package:surprise_me/src/features/auth/presentation/screens/login_screen.dart';
+import 'package:surprise_me/src/features/auth/presentation/screens/register_screen.dart';
 import 'package:surprise_me/src/features/chat/presentation/blocs/chat/chat_bloc.dart';
 import 'package:surprise_me/src/features/chat/presentation/blocs/chats/chats_bloc.dart';
 import 'package:surprise_me/src/features/chat/presentation/blocs/view_image/view_image_bloc.dart';
@@ -22,11 +25,11 @@ var routes = {
     );
   },
   '/chat': (Object? args) {
-    var arg = args as Map<String, String>;
+    var arg = args as Map<String, User>;
     return BlocProvider(
       create: (context) =>
-          ChatBloc(arg['receiver_id'] as String, arg['sender_id'] as String),
-      child: ChatScreen(),
+          ChatBloc(arg['receiver'] as User, arg['sender'] as User),
+      child: const ChatScreen(),
     );
   },
   '/view-image': (Object? args) {
@@ -42,6 +45,12 @@ var routes = {
     return BlocProvider(
       create: (context) => LoginBloc(),
       child: const LoginScreen(),
+    );
+  },
+  '/register': (Object? args) {
+    return BlocProvider(
+      create: (context) => RegisterBloc(),
+      child: const RegisterScreen(),
     );
   }
 };

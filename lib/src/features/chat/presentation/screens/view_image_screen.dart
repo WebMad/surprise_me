@@ -53,7 +53,7 @@ class _ViewImageScreenState extends State<ViewImageScreen> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.of(context).pop(false);
                       },
                       child: const Text("Отклонить"),
                     ),

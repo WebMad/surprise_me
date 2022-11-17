@@ -16,4 +16,9 @@ class ChatEvent with _$ChatEvent {
     required String file,
     required String fileType,
   }) = SendReaction;
+
+  const factory ChatEvent.sendDecline({
+    required String file,
+    required String fileType,
+  }) = SendDecline;
 }

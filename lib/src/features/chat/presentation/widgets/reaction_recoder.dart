@@ -1,6 +1,6 @@
 import 'package:camera/camera.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ReactionRecorder extends StatefulWidget {
   final List<CameraDescription> cameras;
@@ -24,8 +24,16 @@ class ReactionRecorderState extends State<ReactionRecorder> {
   @override
   void initState() {
     super.initState();
-    cameraController =
-        CameraController(widget.cameras[0], ResolutionPreset.max);
+
+    for (var camera in widget.cameras) {
+      print(camera.lensDirection);
+    }
+
+    cameraController = CameraController(
+        widget.cameras.firstWhereOrNull((element) =>
+                element.lensDirection == CameraLensDirection.front) ??
+            widget.cameras[0],
+        ResolutionPreset.max);
     cameraController.initialize().then((_) {
       if (!mounted) {
         return;

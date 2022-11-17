@@ -22,6 +22,7 @@ mixin _$ChatEvent {
     required TResult Function(File? file, String message) sendMessage,
     required TResult Function(File reaction, String file, String fileType)
         sendReaction,
+    required TResult Function(String file, String fileType) sendDecline,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,6 +31,7 @@ mixin _$ChatEvent {
     TResult? Function(File? file, String message)? sendMessage,
     TResult? Function(File reaction, String file, String fileType)?
         sendReaction,
+    TResult? Function(String file, String fileType)? sendDecline,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,6 +39,7 @@ mixin _$ChatEvent {
     TResult Function(List<Message> messages)? newMessages,
     TResult Function(File? file, String message)? sendMessage,
     TResult Function(File reaction, String file, String fileType)? sendReaction,
+    TResult Function(String file, String fileType)? sendDecline,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -45,6 +48,7 @@ mixin _$ChatEvent {
     required TResult Function(NewMessages value) newMessages,
     required TResult Function(SendMessage value) sendMessage,
     required TResult Function(SendReaction value) sendReaction,
+    required TResult Function(SendDecline value) sendDecline,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -52,6 +56,7 @@ mixin _$ChatEvent {
     TResult? Function(NewMessages value)? newMessages,
     TResult? Function(SendMessage value)? sendMessage,
     TResult? Function(SendReaction value)? sendReaction,
+    TResult? Function(SendDecline value)? sendDecline,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -59,6 +64,7 @@ mixin _$ChatEvent {
     TResult Function(NewMessages value)? newMessages,
     TResult Function(SendMessage value)? sendMessage,
     TResult Function(SendReaction value)? sendReaction,
+    TResult Function(SendDecline value)? sendDecline,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -155,6 +161,7 @@ class _$NewMessages implements NewMessages {
     required TResult Function(File? file, String message) sendMessage,
     required TResult Function(File reaction, String file, String fileType)
         sendReaction,
+    required TResult Function(String file, String fileType) sendDecline,
   }) {
     return newMessages(messages);
   }
@@ -166,6 +173,7 @@ class _$NewMessages implements NewMessages {
     TResult? Function(File? file, String message)? sendMessage,
     TResult? Function(File reaction, String file, String fileType)?
         sendReaction,
+    TResult? Function(String file, String fileType)? sendDecline,
   }) {
     return newMessages?.call(messages);
   }
@@ -176,6 +184,7 @@ class _$NewMessages implements NewMessages {
     TResult Function(List<Message> messages)? newMessages,
     TResult Function(File? file, String message)? sendMessage,
     TResult Function(File reaction, String file, String fileType)? sendReaction,
+    TResult Function(String file, String fileType)? sendDecline,
     required TResult orElse(),
   }) {
     if (newMessages != null) {
@@ -190,6 +199,7 @@ class _$NewMessages implements NewMessages {
     required TResult Function(NewMessages value) newMessages,
     required TResult Function(SendMessage value) sendMessage,
     required TResult Function(SendReaction value) sendReaction,
+    required TResult Function(SendDecline value) sendDecline,
   }) {
     return newMessages(this);
   }
@@ -200,6 +210,7 @@ class _$NewMessages implements NewMessages {
     TResult? Function(NewMessages value)? newMessages,
     TResult? Function(SendMessage value)? sendMessage,
     TResult? Function(SendReaction value)? sendReaction,
+    TResult? Function(SendDecline value)? sendDecline,
   }) {
     return newMessages?.call(this);
   }
@@ -210,6 +221,7 @@ class _$NewMessages implements NewMessages {
     TResult Function(NewMessages value)? newMessages,
     TResult Function(SendMessage value)? sendMessage,
     TResult Function(SendReaction value)? sendReaction,
+    TResult Function(SendDecline value)? sendDecline,
     required TResult orElse(),
   }) {
     if (newMessages != null) {
@@ -305,6 +317,7 @@ class _$SendMessage implements SendMessage {
     required TResult Function(File? file, String message) sendMessage,
     required TResult Function(File reaction, String file, String fileType)
         sendReaction,
+    required TResult Function(String file, String fileType) sendDecline,
   }) {
     return sendMessage(file, message);
   }
@@ -316,6 +329,7 @@ class _$SendMessage implements SendMessage {
     TResult? Function(File? file, String message)? sendMessage,
     TResult? Function(File reaction, String file, String fileType)?
         sendReaction,
+    TResult? Function(String file, String fileType)? sendDecline,
   }) {
     return sendMessage?.call(file, message);
   }
@@ -326,6 +340,7 @@ class _$SendMessage implements SendMessage {
     TResult Function(List<Message> messages)? newMessages,
     TResult Function(File? file, String message)? sendMessage,
     TResult Function(File reaction, String file, String fileType)? sendReaction,
+    TResult Function(String file, String fileType)? sendDecline,
     required TResult orElse(),
   }) {
     if (sendMessage != null) {
@@ -340,6 +355,7 @@ class _$SendMessage implements SendMessage {
     required TResult Function(NewMessages value) newMessages,
     required TResult Function(SendMessage value) sendMessage,
     required TResult Function(SendReaction value) sendReaction,
+    required TResult Function(SendDecline value) sendDecline,
   }) {
     return sendMessage(this);
   }
@@ -350,6 +366,7 @@ class _$SendMessage implements SendMessage {
     TResult? Function(NewMessages value)? newMessages,
     TResult? Function(SendMessage value)? sendMessage,
     TResult? Function(SendReaction value)? sendReaction,
+    TResult? Function(SendDecline value)? sendDecline,
   }) {
     return sendMessage?.call(this);
   }
@@ -360,6 +377,7 @@ class _$SendMessage implements SendMessage {
     TResult Function(NewMessages value)? newMessages,
     TResult Function(SendMessage value)? sendMessage,
     TResult Function(SendReaction value)? sendReaction,
+    TResult Function(SendDecline value)? sendDecline,
     required TResult orElse(),
   }) {
     if (sendMessage != null) {
@@ -467,6 +485,7 @@ class _$SendReaction implements SendReaction {
     required TResult Function(File? file, String message) sendMessage,
     required TResult Function(File reaction, String file, String fileType)
         sendReaction,
+    required TResult Function(String file, String fileType) sendDecline,
   }) {
     return sendReaction(reaction, file, fileType);
   }
@@ -478,6 +497,7 @@ class _$SendReaction implements SendReaction {
     TResult? Function(File? file, String message)? sendMessage,
     TResult? Function(File reaction, String file, String fileType)?
         sendReaction,
+    TResult? Function(String file, String fileType)? sendDecline,
   }) {
     return sendReaction?.call(reaction, file, fileType);
   }
@@ -488,6 +508,7 @@ class _$SendReaction implements SendReaction {
     TResult Function(List<Message> messages)? newMessages,
     TResult Function(File? file, String message)? sendMessage,
     TResult Function(File reaction, String file, String fileType)? sendReaction,
+    TResult Function(String file, String fileType)? sendDecline,
     required TResult orElse(),
   }) {
     if (sendReaction != null) {
@@ -502,6 +523,7 @@ class _$SendReaction implements SendReaction {
     required TResult Function(NewMessages value) newMessages,
     required TResult Function(SendMessage value) sendMessage,
     required TResult Function(SendReaction value) sendReaction,
+    required TResult Function(SendDecline value) sendDecline,
   }) {
     return sendReaction(this);
   }
@@ -512,6 +534,7 @@ class _$SendReaction implements SendReaction {
     TResult? Function(NewMessages value)? newMessages,
     TResult? Function(SendMessage value)? sendMessage,
     TResult? Function(SendReaction value)? sendReaction,
+    TResult? Function(SendDecline value)? sendDecline,
   }) {
     return sendReaction?.call(this);
   }
@@ -522,6 +545,7 @@ class _$SendReaction implements SendReaction {
     TResult Function(NewMessages value)? newMessages,
     TResult Function(SendMessage value)? sendMessage,
     TResult Function(SendReaction value)? sendReaction,
+    TResult Function(SendDecline value)? sendDecline,
     required TResult orElse(),
   }) {
     if (sendReaction != null) {
@@ -542,6 +566,165 @@ abstract class SendReaction implements ChatEvent {
   String get fileType;
   @JsonKey(ignore: true)
   _$$SendReactionCopyWith<_$SendReaction> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SendDeclineCopyWith<$Res> {
+  factory _$$SendDeclineCopyWith(
+          _$SendDecline value, $Res Function(_$SendDecline) then) =
+      __$$SendDeclineCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String file, String fileType});
+}
+
+/// @nodoc
+class __$$SendDeclineCopyWithImpl<$Res>
+    extends _$ChatEventCopyWithImpl<$Res, _$SendDecline>
+    implements _$$SendDeclineCopyWith<$Res> {
+  __$$SendDeclineCopyWithImpl(
+      _$SendDecline _value, $Res Function(_$SendDecline) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? file = null,
+    Object? fileType = null,
+  }) {
+    return _then(_$SendDecline(
+      file: null == file
+          ? _value.file
+          : file // ignore: cast_nullable_to_non_nullable
+              as String,
+      fileType: null == fileType
+          ? _value.fileType
+          : fileType // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SendDecline implements SendDecline {
+  const _$SendDecline({required this.file, required this.fileType});
+
+  @override
+  final String file;
+  @override
+  final String fileType;
+
+  @override
+  String toString() {
+    return 'ChatEvent.sendDecline(file: $file, fileType: $fileType)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SendDecline &&
+            (identical(other.file, file) || other.file == file) &&
+            (identical(other.fileType, fileType) ||
+                other.fileType == fileType));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, file, fileType);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SendDeclineCopyWith<_$SendDecline> get copyWith =>
+      __$$SendDeclineCopyWithImpl<_$SendDecline>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Message> messages) newMessages,
+    required TResult Function(File? file, String message) sendMessage,
+    required TResult Function(File reaction, String file, String fileType)
+        sendReaction,
+    required TResult Function(String file, String fileType) sendDecline,
+  }) {
+    return sendDecline(file, fileType);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Message> messages)? newMessages,
+    TResult? Function(File? file, String message)? sendMessage,
+    TResult? Function(File reaction, String file, String fileType)?
+        sendReaction,
+    TResult? Function(String file, String fileType)? sendDecline,
+  }) {
+    return sendDecline?.call(file, fileType);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Message> messages)? newMessages,
+    TResult Function(File? file, String message)? sendMessage,
+    TResult Function(File reaction, String file, String fileType)? sendReaction,
+    TResult Function(String file, String fileType)? sendDecline,
+    required TResult orElse(),
+  }) {
+    if (sendDecline != null) {
+      return sendDecline(file, fileType);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(NewMessages value) newMessages,
+    required TResult Function(SendMessage value) sendMessage,
+    required TResult Function(SendReaction value) sendReaction,
+    required TResult Function(SendDecline value) sendDecline,
+  }) {
+    return sendDecline(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(NewMessages value)? newMessages,
+    TResult? Function(SendMessage value)? sendMessage,
+    TResult? Function(SendReaction value)? sendReaction,
+    TResult? Function(SendDecline value)? sendDecline,
+  }) {
+    return sendDecline?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(NewMessages value)? newMessages,
+    TResult Function(SendMessage value)? sendMessage,
+    TResult Function(SendReaction value)? sendReaction,
+    TResult Function(SendDecline value)? sendDecline,
+    required TResult orElse(),
+  }) {
+    if (sendDecline != null) {
+      return sendDecline(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SendDecline implements ChatEvent {
+  const factory SendDecline(
+      {required final String file,
+      required final String fileType}) = _$SendDecline;
+
+  String get file;
+  String get fileType;
+  @JsonKey(ignore: true)
+  _$$SendDeclineCopyWith<_$SendDecline> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

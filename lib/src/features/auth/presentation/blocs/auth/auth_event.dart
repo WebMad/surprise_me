@@ -7,4 +7,6 @@ class AuthEvent with _$AuthEvent {
   }) = LoggedIn;
 
   const factory AuthEvent.checkAuth() = CheckAuth;
+
+  const factory AuthEvent.logout() = LogoutAuth;
 }
