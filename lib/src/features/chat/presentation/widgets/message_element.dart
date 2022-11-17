@@ -49,7 +49,7 @@ class MessageElement extends StatelessWidget {
                       message.attachedFile,
                 );
                 if (message.attachedFileType == 'image') {
-                  if (userId == message.senderId) {
+                  if (userId == message.senderId || message.type == "decline") {
                     return Image.network(file, width: 200);
                   }
                   return CustomImage(
@@ -63,6 +63,14 @@ class MessageElement extends StatelessWidget {
                           BlocProvider.of<ChatBloc>(context).add(
                             ChatEvent.sendReaction(
                               reaction: value,
+                              file: message.attachedFile!,
+                              fileType: message.attachedFileType!,
+                            ),
+                          );
+                        }
+                        if (value == false) {
+                          BlocProvider.of<ChatBloc>(context).add(
+                            ChatEvent.sendDecline(
                               file: message.attachedFile!,
                               fileType: message.attachedFileType!,
                             ),

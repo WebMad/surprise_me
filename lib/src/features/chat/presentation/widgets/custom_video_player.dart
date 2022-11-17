@@ -31,6 +31,11 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    return VideoPlayer(_controller);
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        VideoPlayer(_controller),
+      ],
+    );
   }
 }

@@ -49,19 +49,22 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }
 
   _onSendDecline(SendDecline event, Emitter emit) async {
-    emit((state as LoadedMessages).copyWith(isSending: true));
-    await FirebaseFirestore.instance.collection("messages").add({
-      "sent_at": DateTime.now(),
-      "user_ids": [
-        sender.id,
-        receiver.id,
-      ],
-      "sender_id": sender.id,
-      "message": "Пользователь отказался включать камеру для этого маетариала(",
-      "attached_file_type": event.fileType,
-      "attached_file": event.file,
-    });
-
+    try {
+      emit((state as LoadedMessages).copyWith(isSending: true));
+      await FirebaseFirestore.instance.collection("messages").add({
+        "sent_at": DateTime.now(),
+        "user_ids": [
+          sender.id,
+          receiver.id,
+        ],
+        "type": "decline",
+        "sender_id": sender.id,
+        "message":
+            "Пользователь отказался включать камеру для этого маетариала(",
+        "attached_file_type": event.fileType,
+        "attached_file": event.file,
+      });
+    } catch (_) {}
     emit((state as LoadedMessages).copyWith(isSending: false));
   }
 

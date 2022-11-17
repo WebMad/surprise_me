@@ -25,15 +25,11 @@ class ReactionRecorderState extends State<ReactionRecorder> {
   void initState() {
     super.initState();
 
-    for (var camera in widget.cameras) {
-      print(camera.lensDirection);
-    }
-
     cameraController = CameraController(
         widget.cameras.firstWhereOrNull((element) =>
                 element.lensDirection == CameraLensDirection.front) ??
             widget.cameras[0],
-        ResolutionPreset.max);
+        ResolutionPreset.medium);
     cameraController.initialize().then((_) {
       if (!mounted) {
         return;
